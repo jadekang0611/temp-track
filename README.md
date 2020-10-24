@@ -1,12 +1,10 @@
-# Getting Started with Create React App
+# What is TemperTrac
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Using this application an education center teacher (e-Haebob) can input and track students' temperatures once checked to follow the government's regulation in relation to the current situation. This app essentially replaces the current tracking style at many branches where teachers manually write on papers.
 
-## Available Scripts
+## Basic UI
 
-In the project directory, you can run:
-
-### `npm start`
+<!-- ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -67,4 +65,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify) -->
