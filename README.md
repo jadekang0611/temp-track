@@ -1,8 +1,28 @@
 # What is TemperTrac
 
-Using this application an education center teacher (e-Haebob) can input and track students' temperatures once checked to follow the government's regulation in relation to the current situation. This app essentially replaces the current tracking style at many branches where teachers manually write on papers.
+Using this application an education center teacher (e-Haebeob) can input and track students' temperatures once checked to follow the government's regulation in relation to the current situation. This app essentially replaces the current tracking style at many branches where teachers manually write on papers.
 
-## Basic UI
+## User Research
+
+### Who are main users?
+
+Main users are educators or owners at private institutions mainly eHabeob Math centers.
+
+### Background of the Application
+
+Due to unchanging severity of the COVID-19, Korean government requires every business to take visitors' or customers' personal information and temperatures and maintain all records. Many businesses have devices to capture a customer's QR code to get their personal information from their phone via Kakao or Naver; however, small private institutions can't afford a such device and their students (10 years old to 16 years old) don't have access to their smartphones. Therefore, educators at many institutions take each student's temperature, manually track their personal information and temperatures on papers everyday. Furthermore, they often use the same paper that has previous information of many students over two or three days, each student's personal information is accessible to anyone.
+
+### What are the users' pain points?
+
+Manual entries of each student's temperature takes time and gets lost though government officials often request institutions to send them a compiled report that shows all entries during over a certain period.
+
+### What solutions do the users get from the application?
+
+The users now have one place where they add, view, and edit student's personal information. Therefore, now the users simply enter each student's temperature during their attedence in the class that only takes less than 5 seconds per student. Moreover, each temperature submission never appears in front of public users as the data is saved and input fields are reset. Lastly, the users can now easily share students' temperature records with government officials at request with just one-click.
+
+## User Flow in the Application
+
+![userflow](https://user-images.githubusercontent.com/56938630/97105002-6ad6da80-16fb-11eb-98cb-c5eaecbff42f.jpeg)
 
 <!-- ### `npm start`
 
