@@ -1,7 +1,20 @@
-
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Landing from './components/Landing';
+import SignUp from './components/SignUp';
+import LogIn from './components/LogIn';
+import * as ROUTES from './constants/routes';
 
 function App() {
-  return <div></div>;
+  return (
+    <Router>
+      <div>
+        <Route exact path={ROUTES.LANDING} component={Landing} />
+        <Route exact path={ROUTES.SIGNUP} component={SignUp} />
+        <Route exact path={ROUTES.LOGIN} component={LogIn} />
+      </div>
+    </Router>
+  );
 }
 
 export default App;
