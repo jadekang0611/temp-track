@@ -1,7 +1,9 @@
 import React from 'react';
 import { Container, Grid, Typography, Button, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import { DataGrid, RowsProp, ColDef } from '@material-ui/data-grid';
+import * as ROUTES from '../../constants/routes';
 
 const useStyles = makeStyles({
   content: {
@@ -15,7 +17,10 @@ const useStyles = makeStyles({
     color: 'white',
     height: 48,
     padding: '0 30px',
-    margin: 8,
+    marginTop: '2rem',
+  },
+  link: {
+    textDecoration: 'none',
   },
 });
 
@@ -38,7 +43,9 @@ function NoStudent() {
         <Typography variant="h5">
           학생들이 없습니다. 학생을 추가해주세요.
         </Typography>
-        <Button className={classes.addButton}>학생 추가하기</Button>
+        <Link to={ROUTES.ADDSTUDENT} className={classes.link}>
+          <Button className={classes.addButton}>학생 추가하기</Button>
+        </Link>
       </Container>
     </div>
   );

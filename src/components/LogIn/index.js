@@ -46,6 +46,8 @@ const LogIn = () => {
           label="비밀번호"
           variant="outlined"
           fullWidth
+          type="password"
+          autoComplete="current-password"
         ></TextField>
         <Button type="submit" className={classes.signup}>
           로그인 하기

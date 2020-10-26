@@ -44,6 +44,8 @@ const SignUp = () => {
           label="비밀번호"
           variant="outlined"
           fullWidth
+          type="password"
+          autoComplete="current-password"
         ></TextField>
         <Button type="submit" className={classes.signup}>
           계정 만들기
