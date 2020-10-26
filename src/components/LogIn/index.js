@@ -1,8 +1,22 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { TextField, Button } from '@material-ui/core';
+import { Typography, Link, TextField, Button } from '@material-ui/core';
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://google.com/">
+        TempTrek
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const useStyles = makeStyles({
+  container: {},
   signup: {
     background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
     border: 0,
@@ -11,13 +25,14 @@ const useStyles = makeStyles({
     color: 'white',
     height: 48,
     padding: '0 30px',
+    margin: 8,
   },
 });
 
 const LogIn = () => {
   const classes = useStyles();
   return (
-    <div>
+    <div className={classes.container}>
       <h2>오늘도 좋은 하루 보내세요, 원장님!</h2>
       <form noValidate autoComplete="off">
         <TextField
@@ -28,14 +43,15 @@ const LogIn = () => {
         ></TextField>
         <TextField
           id="outlined-basic"
-          label="사업장 이름"
+          label="비밀번호"
           variant="outlined"
           fullWidth
         ></TextField>
         <Button type="submit" className={classes.signup}>
-          계정 만들기
+          로그인 하기
         </Button>
       </form>
+      <Copyright />
     </div>
   );
 };
