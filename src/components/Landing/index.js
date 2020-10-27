@@ -1,12 +1,12 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import Footer from '../Footer';
+import Copyright from '../Copyright';
 
-const useStyles = makeStyles({
-  content: { backgroundColor: 'white', padding: '6rem 2rem' },
+const useStyles = makeStyles((theme) => ({
+  content: { backgroundColor: 'white', padding: '6rem 2rem', height: '100vh' },
   buttons: { marginTop: '2rem' },
   signup: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -31,7 +31,10 @@ const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
   },
-});
+  landing: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const Landing = () => {
   const classes = useStyles();
@@ -48,28 +51,29 @@ const Landing = () => {
             align="center"
             color="textSecondary"
             paragraph
+            className={classes.landing}
           >
-            Ditch your piece of paper. Be in compliance with the COVID
-            regulation with this simple tracking application for your students'
-            safety.
+            오늘부터는 체온 기록도 빠르고 정확하게 기록하세요. 학원에서도
+            학생들의 안전을 최우선으로하며 TempTrek의 간단한 체온 기록 기능으로
+            정부의 COVID 규정을 준수하여 학생과 학부모님에게 신뢰를 더하세요.
           </Typography>
           <div className={classes.buttons}>
             <Grid container spacing={2} justify="center">
               <Grid item>
                 <Link to={ROUTES.SIGNUP} className={classes.link}>
-                  <Button className={classes.signup}>Start now</Button>
+                  <Button className={classes.signup}>지금 시작하기</Button>
                 </Link>
               </Grid>
               <Grid item>
                 <Link to={ROUTES.LOGIN} className={classes.link}>
-                  <Button className={classes.login}>Sign in</Button>
+                  <Button className={classes.login}>로그인 하기</Button>
                 </Link>
               </Grid>
             </Grid>
           </div>
         </Container>
+        <Copyright />
       </div>
-      <Footer />
     </>
   );
 };

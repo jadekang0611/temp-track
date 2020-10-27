@@ -31,18 +31,15 @@ export default function Footer() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Container component="main" className={classes.main} maxWidth="sm">
+      {/* <Container component="main" className={classes.main} maxWidth="sm">
         <Typography variant="h2" component="h1" gutterBottom>
           TempTrek Footer
         </Typography>
 
         <Typography variant="body1">Sticky footer placeholder.</Typography>
-      </Container>
+      </Container> */}
       <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body1">TempTrek</Typography>
-          <Copyright />
-        </Container>
+        <Copyright />
       </footer>
     </div>
   );
