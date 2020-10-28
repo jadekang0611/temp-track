@@ -1,12 +1,34 @@
 import React, { useState } from 'react';
-import { Container, Grid, Typography, Button, Paper } from '@material-ui/core';
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  AppBar,
+  Toolbar,
+  IconButton,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AddStudent from '../AddStudent';
+import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import FaceRoundedIcon from '@material-ui/icons/FaceRounded';
+import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 
 import * as ROUTES from '../../constants/routes';
 
+import Placeholder from './NoData.svg';
+import { Place } from '@material-ui/icons';
+
 const useStyles = makeStyles({
+  main: { background: '#F1F1F1', height: '100vh' },
   content: {
     padding: '6rem 2rem',
   },
@@ -18,15 +40,81 @@ const useStyles = makeStyles({
     color: 'white',
     height: 48,
     padding: '0 30px',
-    marginTop: '2rem',
+    margin: '17px',
+    fontWeight: 500,
+    fontSize: '15px',
   },
   link: {
     textDecoration: 'none',
+  },
+  placeholderContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  elevation4: {
+    boxShadow: 'none',
+  },
+  subNavPaper: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+  },
+  subNavGrid: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  AppButton: {
+    color: '#FFFFFF',
+    fontSize: '18px',
+    fontWeight: 700,
+  },
+  noStudentTitle: {
+    marginBottom: '2rem',
+    fontSize: '28px',
+    fontWeight: 700,
+  },
+  toolbar: {
+    padding: '0 10px',
+  },
+  toolbarGrid: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
 const NoStudent = () => {
   const classes = useStyles();
+
+  return (
+    <div className={classes.content}>
+      <Container
+        classes={{
+          root: classes.placeholderContent,
+        }}
+      >
+        <Typography variant="h5" className={classes.noStudentTitle}>
+          학생들이 없습니다. 학생을 추가해주세요.
+        </Typography>
+        <div>
+          <img src={Placeholder} alt="Placeholder" />
+        </div>
+      </Container>
+    </div>
+  );
+};
+
+const MyStudents = () => {
+  const classes = useStyles();
+  return <div></div>;
+};
+
+const list = [];
+
+const ShowStudents = () => {
+  const classes = useStyles();
+
   const [formOpen, setFormOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -37,39 +125,50 @@ const NoStudent = () => {
     setFormOpen(false);
   };
   return (
-    <div className={classes.content}>
-      <Container>
-        <Typography variant="h5">
-          학생들이 없습니다. 학생을 추가해주세요.
-        </Typography>
-
-        <Button
-          className={classes.addButton}
-          onClose={handleClose}
-          onClick={handleClickOpen}
-        >
-          학생 추가하기
-        </Button>
-        <AddStudent open={formOpen} modalClose={handleClose} />
-      </Container>
+    <div className={classes.main}>
+      <AppBar position="static" elevation={false} color="primary">
+        <Toolbar className={classes.toolbar}>
+          <Grid item lg={3} className={classes.toolbarGrid}>
+            <Typography variant="h5">TempTrek</Typography>
+          </Grid>
+          <Grid container lg={6} direction="row" justify="space-evenly">
+            <Button
+              className={classes.AppButton}
+              startIcon={<FaceRoundedIcon />}
+            >
+              학생명단
+            </Button>
+            <Button
+              className={classes.AppButton}
+              startIcon={<TrendingUpRoundedIcon />}
+            >
+              체온기록
+            </Button>
+          </Grid>
+          <Grid item lg={3} className={classes.toolbarGrid}>
+            <IconButton edge="end" className={classes.AppButton}>
+              <ExitToAppRoundedIcon />
+            </IconButton>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+      <Paper elevation={0} className={classes.subNavPaper}>
+        <Grid container>
+          <Grid item xs={12} className={classes.subNavGrid}>
+            <Button
+              className={classes.addButton}
+              onClose={handleClose}
+              onClick={handleClickOpen}
+            >
+              학생 추가하기
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+      <AddStudent open={formOpen} modalClose={handleClose} />
+      {list.length === 0 ? <NoStudent /> : <MyStudents />}
     </div>
   );
-};
-
-const Students = () => {
-  const classes = useStyles();
-  return (
-    <div>
-      <Typography>Show Student List</Typography>
-    </div>
-  );
-};
-
-const list = [];
-
-const ShowStudents = () => {
-  const classes = useStyles();
-  return list.length === 0 ? <NoStudent /> : <Students />;
 };
 
 export default ShowStudents;
