@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Container,
-  Grid,
   Typography,
-  Button,
   Paper,
-  AppBar,
-  Toolbar,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -17,13 +12,6 @@ import {
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import AddStudent from '../AddStudent';
-import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import FaceRoundedIcon from '@material-ui/icons/FaceRounded';
-import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
-
-import * as ROUTES from '../../constants/routes';
 
 import Placeholder from './NoData.svg';
 
@@ -31,7 +19,6 @@ import Placeholder from './NoData.svg';
 import API from '../../api';
 
 const useStyles = makeStyles({
-  main: { background: '#F1F1F1', height: '100vh' },
   content: {
     padding: '6rem 2rem',
   },
@@ -178,8 +165,6 @@ const MyStudents = (props) => {
 const ShowStudents = () => {
   const classes = useStyles();
 
-  const [formOpen, setFormOpen] = useState(false);
-
   const [studentList, setStudentList] = useState([]);
 
   useEffect(() => {
@@ -190,55 +175,8 @@ const ShowStudents = () => {
     })();
   }, []);
 
-  const handleClickOpen = () => {
-    setFormOpen(true);
-  };
-
-  const handleClose = () => {
-    setFormOpen(false);
-  };
   return (
     <div className={classes.main}>
-      <AppBar position="static" elevation={false} color="primary">
-        <Toolbar className={classes.toolbar}>
-          <Grid item lg={3} className={classes.toolbarGrid}>
-            <Typography variant="h5">TempTrek</Typography>
-          </Grid>
-          <Grid container lg={6} direction="row" justify="space-evenly">
-            <Button
-              className={classes.AppButton}
-              startIcon={<FaceRoundedIcon />}
-            >
-              학생명단
-            </Button>
-            <Button
-              className={classes.AppButton}
-              startIcon={<TrendingUpRoundedIcon />}
-            >
-              체온기록
-            </Button>
-          </Grid>
-          <Grid item lg={3} className={classes.toolbarGrid}>
-            <IconButton edge="end" className={classes.AppButton}>
-              <ExitToAppRoundedIcon />
-            </IconButton>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      <Paper elevation={0} className={classes.subNavPaper}>
-        <Grid container>
-          <Grid item xs={12} className={classes.subNavGrid}>
-            <Button
-              className={classes.addButton}
-              onClose={handleClose}
-              onClick={handleClickOpen}
-            >
-              학생 추가하기
-            </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-      <AddStudent open={formOpen} modalClose={handleClose} />
       {studentList.length === 0 ? (
         <NoStudent />
       ) : (
