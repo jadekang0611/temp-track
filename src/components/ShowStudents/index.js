@@ -118,13 +118,13 @@ const MyStudents = (props) => {
   const studentList = props.studentList;
 
   const formatter = (number) => {
-    let firstNum;
-    let secondNum;
-    let thirdNum;
-    firstNum = number.substr(0, 3);
-    secondNum = number.substr(3, 4);
-    thirdNum = number.substr(7, 4);
-    return firstNum + '-' + secondNum + '-' + thirdNum;
+    return (
+      number.substr(0, 3) +
+      '-' +
+      number.substr(3, 4) +
+      '-' +
+      number.substr(7, 4)
+    );
   };
 
   return (
