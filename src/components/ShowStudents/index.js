@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Grid,
   Typography,
   Button,
   Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   AppBar,
   Toolbar,
   IconButton,
 } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AddStudent from '../AddStudent';
@@ -25,7 +20,9 @@ import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 import * as ROUTES from '../../constants/routes';
 
 import Placeholder from './NoData.svg';
-import { Place } from '@material-ui/icons';
+
+// Custom Components
+import API from '../../api';
 
 const useStyles = makeStyles({
   main: { background: '#F1F1F1', height: '100vh' },
@@ -105,17 +102,85 @@ const NoStudent = () => {
   );
 };
 
-const MyStudents = () => {
-  const classes = useStyles();
-  return <div></div>;
-};
+// const columns = [
+//   { field: 'name', headerName: '이름' },
+//   { field: 'school', headerName: '학교' },
+//   { field: 'grade', headerName: '학년' },
+//   { field: 'phoneNumber', headerName: '연락처' },
+//   { field: 'parentName', headerName: '부모님 성함' },
+//   { field: 'parentNumber', headerName: '부모님 연락처' },
+// ];
 
-const list = [];
+// API.get('/students')
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((e) => {
+//     console.log(e);
+//   });
+
+const rows = [
+  // {
+  //   name: '강지훈',
+  //   school: '치현초등학교',
+  //   grade: '3학년',
+  //   phoneNumber: '010-8000-1234',
+  //   parentName: '김수지',
+  //   parentNumber: '010-1233-3909',
+  // },
+  // {
+  //   name: '강지훈',
+  //   school: '치현초등학교',
+  //   grade: '3학년',
+  //   phoneNumber: '010-8000-1234',
+  //   parentName: '김수지',
+  //   parentNumber: '010-1233-3909',
+  // },
+  // {
+  //   name: '강지훈',
+  //   school: '치현초등학교',
+  //   grade: '3학년',
+  //   phoneNumber: '010-8000-1234',
+  //   parentName: '김수지',
+  //   parentNumber: '010-1233-3909',
+  // },
+  // {
+  //   name: '강지훈',
+  //   school: '치현초등학교',
+  //   grade: '3학년',
+  //   phoneNumber: '010-8000-1234',
+  //   parentName: '김수지',
+  //   parentNumber: '010-1233-3909',
+  // },
+];
+
+const MyStudents = (props) => {
+  const classes = useStyles();
+
+  const studentList = props.studentList;
+  return (
+    <>
+      {studentList.map((student) => {
+        return student.name;
+      })}
+    </>
+  );
+};
 
 const ShowStudents = () => {
   const classes = useStyles();
 
   const [formOpen, setFormOpen] = useState(false);
+
+  const [studentList, setStudentList] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await API.get('students');
+      console.log(res.data);
+      setStudentList(res.data);
+    })();
+  }, []);
 
   const handleClickOpen = () => {
     setFormOpen(true);
@@ -166,7 +231,11 @@ const ShowStudents = () => {
         </Grid>
       </Paper>
       <AddStudent open={formOpen} modalClose={handleClose} />
-      {list.length === 0 ? <NoStudent /> : <MyStudents />}
+      {studentList.length === 0 ? (
+        <NoStudent />
+      ) : (
+        <MyStudents studentList={studentList} />
+      )}
     </div>
   );
 };
