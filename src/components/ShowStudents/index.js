@@ -8,6 +8,12 @@ import {
   AppBar,
   Toolbar,
   IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -79,6 +85,10 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'center',
   },
+  tableContainer: {
+    maxWidth: '1200px',
+    margin: '2rem auto',
+  },
 });
 
 const NoStudent = () => {
@@ -102,67 +112,65 @@ const NoStudent = () => {
   );
 };
 
-// const columns = [
-//   { field: 'name', headerName: '이름' },
-//   { field: 'school', headerName: '학교' },
-//   { field: 'grade', headerName: '학년' },
-//   { field: 'phoneNumber', headerName: '연락처' },
-//   { field: 'parentName', headerName: '부모님 성함' },
-//   { field: 'parentNumber', headerName: '부모님 연락처' },
-// ];
-
-// API.get('/students')
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((e) => {
-//     console.log(e);
-//   });
-
-const rows = [
-  // {
-  //   name: '강지훈',
-  //   school: '치현초등학교',
-  //   grade: '3학년',
-  //   phoneNumber: '010-8000-1234',
-  //   parentName: '김수지',
-  //   parentNumber: '010-1233-3909',
-  // },
-  // {
-  //   name: '강지훈',
-  //   school: '치현초등학교',
-  //   grade: '3학년',
-  //   phoneNumber: '010-8000-1234',
-  //   parentName: '김수지',
-  //   parentNumber: '010-1233-3909',
-  // },
-  // {
-  //   name: '강지훈',
-  //   school: '치현초등학교',
-  //   grade: '3학년',
-  //   phoneNumber: '010-8000-1234',
-  //   parentName: '김수지',
-  //   parentNumber: '010-1233-3909',
-  // },
-  // {
-  //   name: '강지훈',
-  //   school: '치현초등학교',
-  //   grade: '3학년',
-  //   phoneNumber: '010-8000-1234',
-  //   parentName: '김수지',
-  //   parentNumber: '010-1233-3909',
-  // },
-];
-
 const MyStudents = (props) => {
   const classes = useStyles();
 
   const studentList = props.studentList;
+
+  const formatter = (number) => {
+    let firstNum;
+    let secondNum;
+    let thirdNum;
+    firstNum = number.substr(0, 3);
+    secondNum = number.substr(3, 4);
+    thirdNum = number.substr(7, 4);
+    return firstNum + '-' + secondNum + '-' + thirdNum;
+  };
+
   return (
     <>
-      {studentList.map((student) => {
-        return student.name;
-      })}
+      <TableContainer className={classes.tableContainer} component={Paper}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>이름</TableCell>
+              <TableCell>학교</TableCell>
+              <TableCell>생년월일</TableCell>
+              <TableCell>학년</TableCell>
+              <TableCell>연락처</TableCell>
+              <TableCell>부모님 성함</TableCell>
+              <TableCell>부모님 연락처</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {studentList.map((student) => (
+              <TableRow key={student._id}>
+                <TableCell component="th" scope="row">
+                  {student.name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {student.school}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {student.dob.split('T')[0]}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {student.grade}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {formatter(student.phone_number)}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {student.parent.parent_name}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {formatter(student.parent.parent_number)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };
