@@ -9,11 +9,18 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Grid,
+  Button,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import Placeholder from './NoData.svg';
+
+import AddStudent from '../AddStudent';
 
 // Custom Components
 import API from '../../api';
@@ -122,7 +129,7 @@ const MyStudents = (props) => {
             <TableRow>
               <TableCell>이름</TableCell>
               <TableCell>학교</TableCell>
-              <TableCell>생년월일</TableCell>
+              {/* <TableCell>생년월일</TableCell> */}
               <TableCell>학년</TableCell>
               <TableCell>연락처</TableCell>
               <TableCell>부모님 성함</TableCell>
@@ -138,11 +145,11 @@ const MyStudents = (props) => {
                 <TableCell component="th" scope="row">
                   {student.school}
                 </TableCell>
-                <TableCell component="th" scope="row">
+                {/* <TableCell component="th" scope="row">
                   {student.dob.split('T')[0]}
-                </TableCell>
+                </TableCell> */}
                 <TableCell component="th" scope="row">
-                  {student.grade}
+                  {student.grade}학년
                 </TableCell>
                 <TableCell component="th" scope="row">
                   {formatter(student.phone_number)}
@@ -167,6 +174,16 @@ const ShowStudents = () => {
 
   const [studentList, setStudentList] = useState([]);
 
+  const [formOpen, setFormOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setFormOpen(true);
+  };
+
+  const handleClose = () => {
+    setFormOpen(false);
+  };
+
   useEffect(() => {
     (async () => {
       const res = await API.get('students');
@@ -175,8 +192,34 @@ const ShowStudents = () => {
     })();
   }, []);
 
+  const getNewList = () => {
+    (async () => {
+      const res = await API.get('students');
+      console.log(res.data);
+      setStudentList(res.data);
+    })();
+  };
+
   return (
     <div className={classes.main}>
+      <Paper elevation={0} className={classes.subNavPaper}>
+        <Grid container>
+          <Grid item xs={12} className={classes.subNavGrid}>
+            <Button
+              className={classes.addButton}
+              onClose={handleClose}
+              onClick={handleClickOpen}
+            >
+              학생 추가하기
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+      <AddStudent
+        open={formOpen}
+        modalClose={handleClose}
+        getNewList={getNewList}
+      />
       {studentList.length === 0 ? (
         <NoStudent />
       ) : (

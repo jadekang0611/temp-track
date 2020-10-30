@@ -20,6 +20,9 @@ import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
 // Custom Routes
 import * as ROUTES from '../../constants/routes';
 
+// API
+import API from '../../api';
+
 // Components
 import ShowStudents from '../ShowStudents';
 import ShowTemp from '../ShowTemp';
@@ -88,15 +91,6 @@ const useStyles = makeStyles({
 const Main = () => {
   const classes = useStyles();
 
-  const [formOpen, setFormOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setFormOpen(true);
-  };
-
-  const handleClose = () => {
-    setFormOpen(false);
-  };
   return (
     <Router>
       <div className={classes.main}>
@@ -131,20 +125,7 @@ const Main = () => {
             </Grid>
           </Toolbar>
         </AppBar>
-        <Paper elevation={0} className={classes.subNavPaper}>
-          <Grid container>
-            <Grid item xs={12} className={classes.subNavGrid}>
-              <Button
-                className={classes.addButton}
-                onClose={handleClose}
-                onClick={handleClickOpen}
-              >
-                학생 추가하기
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper>
-        <AddStudent open={formOpen} modalClose={handleClose} />
+        
 
         <Switch>
           <Route path={ROUTES.SHOWSTUDENTS} component={ShowStudents} />
