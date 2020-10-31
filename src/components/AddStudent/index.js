@@ -82,21 +82,6 @@ export default function AddStudent(props) {
 
   const [input, setInput] = useState({ school: '치현초등학교', grade: '1' });
 
-  const [address, setAddress] = useState({});
-
-  const AddressLookUpAPI =
-    'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-
-  const addressHandler = () => {};
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await AddressLookUpAPI;
-  //     console.log(res);
-  //     setAddress(res);
-  //   })();
-  // }, []);
-
   const inputHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
     console.log(e.target.value);

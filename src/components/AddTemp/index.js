@@ -9,8 +9,11 @@ import {
   Typography,
   Container,
   Icon,
+  InputAdornment,
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 import API from '../../api';
 
@@ -31,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0rem 2rem',
   },
 
-  buttonContainer: { marginTop: '2rem' },
+  //   buttonContainer: { marginTop: '2rem' },
   addButton: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 0,
@@ -49,6 +52,42 @@ const useStyles = makeStyles((theme) => ({
 
 const AddTemp = () => {
   const classes = useStyles();
+
+  const [userData, setUserData] = useState({});
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState([]);
+
+  const loading = open && search.length === 0;
+
+  useEffect(() => {
+    (async () => {
+      const res = await API.get('students');
+      setSearch(res.data);
+      console.log(res.data);
+    })();
+  }, []);
+
+  const dataHandler = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+    console.log(e.target.value);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    console.log(userData);
+    const obj = {
+      name: userData.name,
+      temperature: userData.temperature,
+      address: userData.address,
+  
+    };
+  };
+
+  // search async to get the user data just save the user's id to my state
+  const searchHandler = (e) => {};
+
+  // Use the id from above,
+
   return (
     <div className={classes.root}>
       <Typography variant="h4" align="center" className={classes.message}>
@@ -58,33 +97,34 @@ const AddTemp = () => {
       <form noValidate autoComplete="on" className={classes.form}>
         <Grid container direction="row" justify="space-around" spacing={2}>
           <Grid item xs={12} md={3}>
-            <TextField
-              variant="outlined"
-              label="이름"
-              className={classes.box}
-              fullWidth
-              required
-            ></TextField>
+            {search && (
+              <Autocomplete
+                options={search}
+                getOptionLabel={(search) =>
+                  `${search.name} (${search.grade}학년)`
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="이름"
+                    className={classes.box}
+                    fullWidth
+                    required
+                    //   onChange={dataHandler}
+                    // InputProps={{
+                    //   startAdornment: (
+                    //     <InputAdornment position="start">
+                    //       <SearchRoundedIcon />
+                    //     </InputAdornment>
+                    //   ),
+                    // }}
+                  />
+                )}
+              />
+            )}
           </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              variant="outlined"
-              label="주소"
-              className={classes.box}
-              fullWidth
-              required
-            ></TextField>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <TextField
-              required
-              variant="outlined"
-              label="연락처"
-              className={classes.box}
-              fullWidth
-              id="outlined-required"
-            />
-          </Grid>
+
           <Grid item xs={12} md={3}>
             <TextField
               variant="outlined"
@@ -92,16 +132,17 @@ const AddTemp = () => {
               className={classes.box}
               fullWidth
               required
+              onChange={dataHandler}
             />
           </Grid>
-        </Grid>
-        <Grid item className={classes.buttonContainer} xs={12}>
-          <Button
-            className={classes.addButton}
-            startIcon={<PublishRoundedIcon />}
-          >
-            입력하기
-          </Button>
+          <Grid item className={classes.buttonContainer} xs={12} md={3}>
+            <Button
+              className={classes.addButton}
+              startIcon={<PublishRoundedIcon />}
+            >
+              입력하기
+            </Button>
+          </Grid>
         </Grid>
       </form>
     </div>
