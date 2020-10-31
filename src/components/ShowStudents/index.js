@@ -82,6 +82,7 @@ const useStyles = makeStyles({
   tableContainer: {
     maxWidth: '1200px',
     margin: '2rem auto',
+    maxHeight: 500,
   },
 });
 
@@ -124,7 +125,7 @@ const MyStudents = (props) => {
   return (
     <>
       <TableContainer className={classes.tableContainer} component={Paper}>
-        <Table className={classes.table}>
+        <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell>이름</TableCell>

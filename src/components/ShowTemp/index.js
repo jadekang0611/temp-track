@@ -10,6 +10,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -83,7 +84,9 @@ const useStyles = makeStyles({
   tableContainer: {
     maxWidth: '1200px',
     margin: '2rem auto',
+    maxHeight: 500,
   },
+  paper: { maxWidth: '1200px', margin: '2rem auto' },
   green: { color: '#49E20E' },
   red: {
     color: 'red',
@@ -116,6 +119,18 @@ const MyStudentTemp = (props) => {
 
   const studentTempList = props.studentTempList;
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const pageChangeHandler = (e, newPage) => {
+    setPage(newPage);
+  };
+
+  const rowsPerPageHandler = (e) => {
+    setRowsPerPage(+e.target.value);
+    setPage(0);
+  };
+
   const getTime = (timestamp) => {
     return dayjs(timestamp).format('hh:mm a');
   };
@@ -129,9 +144,9 @@ const MyStudentTemp = (props) => {
   };
 
   return (
-    <>
+    <Paper className={classes.paper}>
       <TableContainer className={classes.tableContainer} component={Paper}>
-        <Table className={classes.table}>
+        <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
               <TableCell>이름</TableCell>
@@ -142,29 +157,40 @@ const MyStudentTemp = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {studentTempList.map((student) => (
-              <TableRow key={student._id}>
-                <TableCell component="th" scope="row">
-                  {student.name}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {student.date_time.split('T')[0]}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {getTime(student.date_time)}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {student.temperature} &#8451;
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {analysis(student.temperature)}
-                </TableCell>
-              </TableRow>
-            ))}
+            {studentTempList
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((student) => (
+                <TableRow key={student._id}>
+                  <TableCell component="th" scope="row">
+                    {student.name}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {student.date_time.split('T')[0]}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {getTime(student.date_time)}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {student.temperature} &#8451;
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {analysis(student.temperature)}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 50]}
+        component="div"
+        count={studentTempList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={pageChangeHandler}
+        onChangeRowsPerPage={rowsPerPageHandler}
+      />
+    </Paper>
   );
 };
 
