@@ -54,10 +54,7 @@ const AddTemp = () => {
   const classes = useStyles();
 
   const [userData, setUserData] = useState({});
-  const [open, setOpen] = useState(false);
   const [search, setSearch] = useState([]);
-
-  const loading = open && search.length === 0;
 
   useEffect(() => {
     (async () => {
@@ -67,9 +64,17 @@ const AddTemp = () => {
     })();
   }, []);
 
-  const dataHandler = (e) => {
+  const dataHandler = (e, value) => {
+    setUserData({
+      ...userData,
+      name: value.name,
+      student_id: value._id,
+    });
+    console.log(JSON.stringify(value, null, ' '));
+  };
+
+  const tempHandler = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
-    console.log(e.target.value);
   };
 
   const submitHandler = (e) => {
@@ -78,8 +83,7 @@ const AddTemp = () => {
     const obj = {
       name: userData.name,
       temperature: userData.temperature,
-      address: userData.address,
-  
+      student_id: userData.student_id,
     };
   };
 
@@ -103,6 +107,7 @@ const AddTemp = () => {
                 getOptionLabel={(search) =>
                   `${search.name} (${search.grade}학년)`
                 }
+                getOptionSelected={search.student_id}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -111,16 +116,11 @@ const AddTemp = () => {
                     className={classes.box}
                     fullWidth
                     required
-                    //   onChange={dataHandler}
-                    // InputProps={{
-                    //   startAdornment: (
-                    //     <InputAdornment position="start">
-                    //       <SearchRoundedIcon />
-                    //     </InputAdornment>
-                    //   ),
-                    // }}
                   />
                 )}
+                onChange={(e, value) => {
+                  dataHandler(e, value);
+                }}
               />
             )}
           </Grid>
@@ -132,12 +132,14 @@ const AddTemp = () => {
               className={classes.box}
               fullWidth
               required
-              onChange={dataHandler}
+              name="temperature"
+              onChange={tempHandler}
             />
           </Grid>
           <Grid item className={classes.buttonContainer} xs={12} md={3}>
             <Button
               className={classes.addButton}
+              onClick={submitHandler}
               startIcon={<PublishRoundedIcon />}
             >
               입력하기
