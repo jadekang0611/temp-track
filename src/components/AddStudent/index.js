@@ -12,9 +12,11 @@ import {
   DialogTitle,
   Paper,
   MenuItem,
+  InputBase,
 } from '@material-ui/core';
 
 import API from '../../api';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -79,6 +81,21 @@ export default function AddStudent(props) {
   const classes = useStyles();
 
   const [input, setInput] = useState({ school: '치현초등학교', grade: '1' });
+
+  const [address, setAddress] = useState({});
+
+  const AddressLookUpAPI =
+    'https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+
+  const addressHandler = () => {};
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const res = await AddressLookUpAPI;
+  //     console.log(res);
+  //     setAddress(res);
+  //   })();
+  // }, []);
 
   const inputHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -163,6 +180,7 @@ export default function AddStudent(props) {
                   ))}
                 </TextField>
               </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   variant="filled"
@@ -182,6 +200,39 @@ export default function AddStudent(props) {
                   ))}
                 </TextField>
               </Grid>
+
+              <Grid item xs={6} sm={6}>
+                <TextField
+                  variant="filled"
+                  fullWidth
+                  placeholder="주소 검색하기"
+                  name="address"
+                  label="우편번호"
+                  type="address"
+                  id="address"
+                />
+              </Grid>
+              <Grid item xs={4} sm={4}>
+                <Button color="primary">우편번호 찾기</Button>
+              </Grid>
+              <br />
+              <Grid item xs={6} sm={6}>
+                <TextField
+                  variant="filled"
+                  required
+                  fullWidth
+                  placeholder="서울시"
+                ></TextField>{' '}
+              </Grid>
+              <Grid item xs={6} sm={6}>
+                <TextField
+                  variant="filled"
+                  required
+                  fullWidth
+                  placeholder="강서구"
+                ></TextField>{' '}
+              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   variant="filled"

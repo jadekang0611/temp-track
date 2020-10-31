@@ -4,7 +4,6 @@ import {
   Grid,
   Typography,
   Button,
-  Paper,
   AppBar,
   Toolbar,
   IconButton,
@@ -12,7 +11,7 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import AddStudent from '../AddStudent';
+
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import FaceRoundedIcon from '@material-ui/icons/FaceRounded';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
@@ -26,6 +25,7 @@ import API from '../../api';
 // Components
 import ShowStudents from '../ShowStudents';
 import ShowTemp from '../ShowTemp';
+import AddTemp from '../AddTemp';
 
 const useStyles = makeStyles({
   main: { background: '#F1F1F1', height: '100vh' },
@@ -125,11 +125,11 @@ const Main = () => {
             </Grid>
           </Toolbar>
         </AppBar>
-        
 
         <Switch>
           <Route path={ROUTES.SHOWSTUDENTS} component={ShowStudents} />
           <Route path={ROUTES.SHOWTEMPERATURES} component={ShowTemp} />
+          <Route path={ROUTES.ADDTEMP} component={AddTemp} />
         </Switch>
       </div>
     </Router>

@@ -98,7 +98,7 @@ const LogIn = () => {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link to={ROUTES.SHOWSTUDENTS} className={classes.link}>
+              <Link to={ROUTES.ADDTEMP} className={classes.link}>
                 <Button type="submit" fullWidth className={classes.login}>
                   로그인 하기
                 </Button>
