@@ -189,21 +189,6 @@ export default function AddStudent(props) {
               <Grid item xs={6} sm={6}>
                 <TextField
                   variant="filled"
-                  fullWidth
-                  placeholder="주소 검색하기"
-                  name="address"
-                  label="우편번호"
-                  type="address"
-                  id="address"
-                />
-              </Grid>
-              <Grid item xs={4} sm={4}>
-                <Button color="primary">우편번호 찾기</Button>
-              </Grid>
-              <br />
-              <Grid item xs={6} sm={6}>
-                <TextField
-                  variant="filled"
                   required
                   fullWidth
                   placeholder="서울시"

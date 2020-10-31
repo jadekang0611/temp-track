@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Paper,
-  Button,
-  CssBaseline,
-  TextField,
-  Grid,
-  Typography,
-  Container,
-  Icon,
-  InputAdornment,
-} from '@material-ui/core';
+import { Button, TextField, Grid, Typography } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
-import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 import API from '../../api';
 
@@ -85,6 +74,13 @@ const AddTemp = () => {
       temperature: userData.temperature,
       student_id: userData.student_id,
     };
+    (async () => {
+      try {
+        const res = await API.post('logs', obj);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
   };
 
   // search async to get the user data just save the user's id to my state
