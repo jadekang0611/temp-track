@@ -103,7 +103,7 @@ export default function AddStudent(props) {
 
     (async () => {
       try {
-        const res = await API.post('students', obj);
+        await API.post('students', obj);
         props.getNewList();
         props.modalClose();
       } catch (e) {

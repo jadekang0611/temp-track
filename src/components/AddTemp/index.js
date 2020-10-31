@@ -44,22 +44,26 @@ const AddTemp = () => {
 
   const [userData, setUserData] = useState({});
   const [search, setSearch] = useState([]);
+  const [selected, setSelected] = useState({});
 
   useEffect(() => {
     (async () => {
       const res = await API.get('students');
       setSearch(res.data);
+      setSelected(res.data[0]);
       console.log(res.data);
     })();
   }, []);
 
   const dataHandler = (e, value) => {
-    setUserData({
-      ...userData,
-      name: value.name,
-      student_id: value._id,
-    });
-    console.log(JSON.stringify(value, null, ' '));
+    if (value != null) {
+      setUserData({
+        ...userData,
+        name: value.name,
+        student_id: value._id,
+      });
+    }
+    setSelected(value);
   };
 
   const tempHandler = (e) => {
@@ -76,17 +80,14 @@ const AddTemp = () => {
     };
     (async () => {
       try {
-        const res = await API.post('logs', obj);
+        await API.post('logs', obj);
+        setSelected(search[0]);
+        setUserData({ ...userData, name: '', temperature: '' });
       } catch (e) {
         console.log(e);
       }
     })();
   };
-
-  // search async to get the user data just save the user's id to my state
-  const searchHandler = (e) => {};
-
-  // Use the id from above,
 
   return (
     <div className={classes.root}>
@@ -103,6 +104,7 @@ const AddTemp = () => {
                 getOptionLabel={(search) =>
                   `${search.name} (${search.grade}학년)`
                 }
+                value={selected}
                 getOptionSelected={search.student_id}
                 renderInput={(params) => (
                   <TextField
@@ -130,6 +132,7 @@ const AddTemp = () => {
               required
               name="temperature"
               onChange={tempHandler}
+              value={userData.temperature}
             />
           </Grid>
           <Grid item className={classes.buttonContainer} xs={12} md={3}>
