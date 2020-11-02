@@ -11,6 +11,8 @@ import {
   TableHead,
   TableRow,
   TablePagination,
+  Grid,
+  Button,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,6 +23,7 @@ import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 
 // Custom Components
 import API from '../../api';
+import DatePicker from '../DatePicker';
 
 const dayjs = require('dayjs');
 
@@ -42,6 +45,16 @@ const useStyles = makeStyles({
     margin: '17px',
     fontWeight: 500,
     fontSize: '15px',
+  },
+  generateButton: {
+    background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+    margin: '17px',
   },
   link: {
     textDecoration: 'none',
@@ -209,6 +222,13 @@ const ShowTemp = () => {
 
   return (
     <div className={classes.main}>
+      <Paper elevation={0} className={classes.subNavPaper}>
+        <Grid container direcion="row" justify="space-evenly">
+          <DatePicker />
+          <Button className={classes.generateButton}>기록생성</Button>
+          <Button className={classes.addButton}>체온재기</Button>
+        </Grid>
+      </Paper>
       {studentTempList.length === 0 ? (
         <NoStudent />
       ) : (
