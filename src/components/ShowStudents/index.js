@@ -9,9 +9,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  AppBar,
-  Toolbar,
-  IconButton,
+  TablePagination,
   Grid,
   Button,
 } from '@material-ui/core';
@@ -21,6 +19,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Placeholder from './NoData.svg';
 
 import AddStudent from '../AddStudent';
+
+import Copyright from '../Copyright';
 
 // Custom Components
 import API from '../../api';
@@ -85,6 +85,15 @@ const useStyles = makeStyles({
     margin: '2rem auto',
     maxHeight: 500,
   },
+  tableCol: {
+    color: 'rgba(17, 7, 37, 0.5)',
+    fontSize: 15,
+    fontWeight: 600,
+  },
+  tableRow: {
+    color: '#110725',
+    fontSize: 15,
+  },
 });
 
 const NoStudent = () => {
@@ -113,6 +122,18 @@ const MyStudents = (props) => {
 
   const studentList = props.studentList;
 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  const pageChangeHandler = (e, newPage) => {
+    setPage(newPage);
+  };
+
+  const rowsPerPageHandler = (e) => {
+    setRowsPerPage(+e.target.value);
+    setPage(0);
+  };
+
   const formatter = (number) => {
     return (
       number.substr(0, 3) +
@@ -133,37 +154,61 @@ const MyStudents = (props) => {
         <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>이름</TableCell>
-              <TableCell>학교</TableCell>
+              <TableCell className={classes.tableCol}>이름</TableCell>
+              <TableCell className={classes.tableCol}>학교</TableCell>
               {/* <TableCell>생년월일</TableCell> */}
-              <TableCell>학년</TableCell>
-              <TableCell>연락처</TableCell>
-              <TableCell>부모님 성함</TableCell>
-              <TableCell>부모님 연락처</TableCell>
+              <TableCell className={classes.tableCol}>학년</TableCell>
+              <TableCell className={classes.tableCol}>연락처</TableCell>
+              <TableCell className={classes.tableCol}>부모님 성함</TableCell>
+              <TableCell className={classes.tableCol}>부모님 연락처</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {studentList.map((student) => (
               <TableRow key={student._id}>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableRow}
+                >
                   {student.name}
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableRow}
+                >
                   {student.school}
                 </TableCell>
                 {/* <TableCell component="th" scope="row">
                   {student.dob.split('T')[0]}
                 </TableCell> */}
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableRow}
+                >
                   {student.grade}학년
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableRow}
+                >
                   {formatter(student.phone_number)}
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableRow}
+                >
                   {student.parent.parent_name}
                 </TableCell>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  className={classes.tableRow}
+                >
                   {formatter(student.parent.parent_number)}
                 </TableCell>
               </TableRow>
@@ -171,6 +216,15 @@ const MyStudents = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 50]}
+        component="div"
+        count={studentList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={pageChangeHandler}
+        onChangeRowsPerPage={rowsPerPageHandler}
+      />
     </Paper>
   );
 };
@@ -231,6 +285,9 @@ const ShowStudents = () => {
       ) : (
         <MyStudents studentList={studentList} />
       )}
+      <div>
+        <Copyright />
+      </div>
     </div>
   );
 };

@@ -24,6 +24,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Placeholder from './NoData.svg';
 import PriorityHighRoundedIcon from '@material-ui/icons/PriorityHighRounded';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
+import Copyright from '../Copyright';
 
 // Custom Components
 import API from '../../api';
@@ -39,27 +40,27 @@ const useStyles = makeStyles({
     padding: '6rem 2rem',
   },
   downloadButton: {
-    background: ' #FE6B8B ',
+    background: ' linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%) ',
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     color: 'white',
     height: 48,
     padding: '0 30px',
-    margin: '17px',
+    margin: '17px 0 17px 0',
     fontWeight: 500,
     fontSize: '15px',
   },
 
   searchButton: {
-    background: '#2196F3',
+    background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
     border: 0,
     borderRadius: 3,
     boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
     color: 'white',
     height: 48,
     padding: '0 30px',
-    margin: '17px',
+    margin: '17px 0 17px 17px',
   },
   link: {
     textDecoration: 'none',
@@ -102,12 +103,21 @@ const useStyles = makeStyles({
   tableContainer: {
     maxWidth: '1200px',
     margin: '2rem auto',
-    maxHeight: 500,
+    maxHeight: 420,
   },
   paper: { maxWidth: '1200px', margin: '2rem auto' },
   green: { color: '#49E20E' },
   red: {
     color: 'red',
+  },
+  tableCol: {
+    color: 'rgba(17, 7, 37, 0.5)',
+    fontSize: 15,
+    fontWeight: 600,
+  },
+  tableRow: {
+    color: '#110725',
+    fontSize: 15,
   },
 });
 
@@ -171,11 +181,11 @@ const MyStudentTemp = (props) => {
         <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>이름</TableCell>
-              <TableCell>날짜</TableCell>
-              <TableCell>시간</TableCell>
-              <TableCell>체온</TableCell>
-              <TableCell>체온분석</TableCell>
+              <TableCell className={classes.tableCol}>이름</TableCell>
+              <TableCell className={classes.tableCol}>날짜</TableCell>
+              <TableCell className={classes.tableCol}>시간</TableCell>
+              <TableCell className={classes.tableCol}>체온</TableCell>
+              <TableCell className={classes.tableCol}>체온분석</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -183,19 +193,39 @@ const MyStudentTemp = (props) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((student) => (
                 <TableRow key={student._id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className={classes.tableRow}
+                  >
                     {student.name}
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className={classes.tableRow}
+                  >
                     {student.date_time.split('T')[0]}
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className={classes.tableRow}
+                  >
                     {getTime(student.date_time)}
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className={classes.tableRow}
+                  >
                     {student.temperature} &#8451;
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className={classes.tableRow}
+                  >
                     {analysis(student.temperature)}
                   </TableCell>
                 </TableRow>
@@ -329,7 +359,7 @@ const ShowTemp = () => {
   return (
     <div className={classes.main}>
       <Paper elevation={0} className={classes.subNavPaper}>
-        <Grid container direcion="row" justify="space-evenly">
+        <Grid container direcion="row" justify="space-around">
           <DatePicker label="From" name="startDate" handleDate={handleDate} />
           <DatePicker label="To" name="endDate" handleDate={handleDate} />
           <Button className={classes.searchButton} onClick={handleSubmit}>
@@ -345,6 +375,9 @@ const ShowTemp = () => {
       ) : (
         <MyStudentTemp studentTempList={studentTempList} />
       )}
+      <div>
+        <Copyright />
+      </div>
       <Grid item xs={12}>
         {loading && <CircularProgress />}
       </Grid>

@@ -7,8 +7,8 @@ const Copyright = () => {
     <Box mt={5} align="center">
       <Typography variant="body2" color="textSecondary">
         {'Copyright © '}
-        <Link color="inherit" href="https://google.com/">
-          TempTrek
+        <Link color="inherit" href="https://github.com/jadekang0611">
+          Jade Kang
         </Link>{' '}
         {new Date().getFullYear()}
         {'.'}
