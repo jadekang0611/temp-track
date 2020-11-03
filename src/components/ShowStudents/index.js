@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   content: {
     padding: '6rem 2rem',
   },
+  paper: { maxWidth: '1200px', margin: '2rem auto' },
   addButton: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 0,
@@ -123,8 +124,12 @@ const MyStudents = (props) => {
   };
 
   return (
-    <>
-      <TableContainer className={classes.tableContainer} component={Paper}>
+    <Paper className={classes.paper}>
+      <TableContainer
+        className={classes.tableContainer}
+        elevation={0}
+        component={Paper}
+      >
         <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
@@ -166,7 +171,7 @@ const MyStudents = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Paper>
   );
 };
 

@@ -46,7 +46,7 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: '15px',
   },
-  generateButton: {
+  searchButton: {
     background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
     border: 0,
     borderRadius: 3,
@@ -158,7 +158,11 @@ const MyStudentTemp = (props) => {
 
   return (
     <Paper className={classes.paper}>
-      <TableContainer className={classes.tableContainer} component={Paper}>
+      <TableContainer
+        className={classes.tableContainer}
+        elevation={0}
+        component={Paper}
+      >
         <Table className={classes.table} stickyHeader>
           <TableHead>
             <TableRow>
@@ -210,12 +214,51 @@ const MyStudentTemp = (props) => {
 const ShowTemp = () => {
   const classes = useStyles();
 
+  const now = dayjs();
+
   const [studentTempList, setStudentTempList] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const [dates, setDates] = useState({
+    startDate: '',
+    endDate: '',
+  });
+
+  const handleDate = (name, date) => {
+    console.log(name);
+    console.log(date);
+    setDates({
+      ...dates,
+      [name]: date,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    (async () => {
+      try {
+        setLoading(true);
+        let obj = {
+          firstDate: dates.startDate,
+          secondDate: dates.endDate,
+        };
+        console.log(obj.firstDate);
+        console.log(obj.secondDate);
+        const res = await API.post('logs/date', obj);
+        setLoading(false);
+        setStudentTempList(res.data);
+      } catch (e) {
+        setLoading(false);
+        console.log(e);
+      }
+    })();
+  };
 
   useEffect(() => {
     (async () => {
       const res = await API.get('logs');
-      console.log(res.data);
       setStudentTempList(res.data);
     })();
   }, []);
@@ -224,9 +267,12 @@ const ShowTemp = () => {
     <div className={classes.main}>
       <Paper elevation={0} className={classes.subNavPaper}>
         <Grid container direcion="row" justify="space-evenly">
-          <DatePicker />
-          <Button className={classes.generateButton}>기록생성</Button>
-          <Button className={classes.addButton}>체온재기</Button>
+          <DatePicker label="From" name="startDate" handleDate={handleDate} />
+          <DatePicker label="To" name="endDate" handleDate={handleDate} />
+          <Button className={classes.searchButton} onClick={handleSubmit}>
+            기록 찾기
+          </Button>
+          <Button className={classes.addButton}>체온 재기</Button>
         </Grid>
       </Paper>
       {studentTempList.length === 0 ? (

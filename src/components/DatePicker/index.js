@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 import { Grid } from '@material-ui/core';
 
 import {
@@ -10,16 +12,12 @@ import {
 // Pick a date util library
 import DateFnsUtils from '@date-io/date-fns';
 
-const DatePicker = () => {
-  const [selectedBegDate, setSelectedBegDate] = useState();
-  const [selectedEndDate, setSelectedEndDate] = useState();
+const DatePicker = (props) => {
+  const [selectedDate, setSelectedDate] = useState();
 
-  const begDateHandler = (date) => {
-    setSelectedBegDate(date);
-  };
-
-  const endDateHandler = (date) => {
-    setSelectedEndDate(date);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    props.handleDate(props.name, date);
   };
 
   return (
@@ -29,16 +27,9 @@ const DatePicker = () => {
         format="MM/dd/yyyy"
         margin="normal"
         id="date-picker-inline"
-        value={selectedBegDate}
-        onChange={begDateHandler}
-      />
-      <KeyboardDatePicker
-        variant="dialog"
-        format="MM/dd/yyyy"
-        margin="normal"
-        id="date-picker-inline"
-        value={selectedEndDate}
-        onChange={endDateHandler}
+        value={selectedDate}
+        onChange={handleDateChange}
+        label={props.label}
       />
     </MuiPickersUtilsProvider>
   );
