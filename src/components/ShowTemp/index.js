@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import './KRFonts.js';
 
 import {
   Container,
@@ -13,6 +16,7 @@ import {
   TablePagination,
   Grid,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,7 +38,7 @@ const useStyles = makeStyles({
   content: {
     padding: '6rem 2rem',
   },
-  addButton: {
+  downloadButton: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 0,
     borderRadius: 3,
@@ -46,6 +50,7 @@ const useStyles = makeStyles({
     fontWeight: 500,
     fontSize: '15px',
   },
+
   searchButton: {
     background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
     border: 0,
@@ -214,8 +219,6 @@ const MyStudentTemp = (props) => {
 const ShowTemp = () => {
   const classes = useStyles();
 
-  const now = dayjs();
-
   const [studentTempList, setStudentTempList] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -263,6 +266,66 @@ const ShowTemp = () => {
     })();
   }, []);
 
+  const getTime = (timestamp) => {
+    return dayjs(timestamp).format('hh:mm a');
+  };
+
+  //<------- PDF Generator starts here -------->//
+  const handleDownload = (e) => {
+    console.log('here');
+
+    const doc = new jsPDF();
+    const tableRows = [];
+    console.log('start');
+
+    studentTempList.forEach((data) => {
+      const data_obj = [
+        data.name,
+        data.date_time.split('T')[0],
+        getTime(data.date_time),
+        data.temperature,
+      ];
+      tableRows.push(data_obj);
+    });
+
+    let finalY = doc.lastAutoTable.finalY || 10;
+    doc.setFont('NanumSquare_acR');
+    doc.text('방화동성 e해법수학 학생 체온 기록', 14, finalY + 15);
+    autoTable(doc, {
+      theme: 'grid',
+      startY: finalY + 20,
+      margin: { top: 20 },
+      columns: [
+        { dataKey: 'name', header: '이름' },
+        { dataKey: 'date', header: '날짜' },
+        { dataKey: 'time', header: '시간' },
+        { dataKey: 'temperature', header: '체온' },
+      ],
+      body: tableRows,
+      columnStyles: {
+        name: { font: 'NanumSquare_acR' },
+        date: { font: 'NanumSquare_acR' },
+        time: { font: 'NanumSquare_acR' },
+        temperature: { font: 'NanumSquare_acR' },
+      },
+      allSectionHooks: true,
+      didParseCell: function (data) {
+        if (
+          data.column.dataKey === 'name' ||
+          data.column.dataKey === 'date' ||
+          data.column.dataKey === 'time' ||
+          data.column.dataKey === 'temperature'
+        ) {
+          data.cell.styles.font = 'NanumSquare_acR';
+        }
+      },
+    });
+    doc.save(`report.pdf`);
+    // Define the columns I want and their titles
+  };
+
+  //<------- PDF Generator ends here -------->//
+
   return (
     <div className={classes.main}>
       <Paper elevation={0} className={classes.subNavPaper}>
@@ -272,7 +335,9 @@ const ShowTemp = () => {
           <Button className={classes.searchButton} onClick={handleSubmit}>
             기록 찾기
           </Button>
-          <Button className={classes.addButton}>체온 재기</Button>
+          <Button className={classes.downloadButton} onClick={handleDownload}>
+            기록 다운받기
+          </Button>
         </Grid>
       </Paper>
       {studentTempList.length === 0 ? (
@@ -280,6 +345,9 @@ const ShowTemp = () => {
       ) : (
         <MyStudentTemp studentTempList={studentTempList} />
       )}
+      <Grid item xs={12}>
+        {loading && <CircularProgress />}
+      </Grid>
     </div>
   );
 };
