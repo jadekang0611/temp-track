@@ -27,7 +27,10 @@ import ShowStudents from '../ShowStudents';
 import ShowTemp from '../ShowTemp';
 import AddTemp from '../AddTemp';
 
+import Logo from '../../images/Tempture.png';
+
 const useStyles = makeStyles({
+  appbar: { background: '#f1d302', color: '#071013' },
   main: { background: '#F1F1F1', height: '100vh' },
   content: {
     padding: '6rem 2rem',
@@ -65,7 +68,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
   },
   AppButton: {
-    color: '#FFFFFF',
+    color: '#071013',
     fontSize: '18px',
     fontWeight: 700,
   },
@@ -94,10 +97,10 @@ const Main = () => {
   return (
     <Router>
       <div className={classes.main}>
-        <AppBar position="static" elevation={false} color="primary">
+        <AppBar position="static" elevation={false} className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
             <Grid item lg={3} className={classes.toolbarGrid}>
-              <Typography variant="h5">TempTrek</Typography>
+              <img src={Logo} alt="logo" width="200" />
             </Grid>
             <Grid container lg={6} direction="row" justify="space-evenly">
               <Link to={ROUTES.SHOWSTUDENTS} className={classes.link}>
