@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -11,9 +11,12 @@ import {
   Avatar,
   FormControlLabel,
 } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Copyright from '../Copyright';
+
+import API from '../../api';
 
 const useStyles = makeStyles((theme) => ({
   root: { height: '100vh' },
@@ -53,10 +56,52 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginTop: theme.spacing(1),
   },
+  error: {
+    color: 'red',
+  },
 }));
 
 const SignUp = () => {
+  let history = useHistory();
   const classes = useStyles();
+
+  const [userData, setUserData] = useState({});
+  const [form, setForm] = useState(false);
+  const [error, setError] = useState('');
+
+  const formHandler = (e) => {
+    setForm(e.target.checked);
+    console.log(e.target.checked);
+  };
+
+  const userInputHandler = (e) => {
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+    console.log(e.target.value);
+  };
+  const registerHandler = (e) => {
+    e.preventDefault();
+    setError('');
+    const obj = {
+      name: userData.name,
+      email: userData.email,
+      password: userData.password,
+    };
+    console.log(obj);
+    if (form === false) {
+      setError('이용약관, 개인정보 수집 및 이용에 동의해주세요.');
+    } else {
+      (async () => {
+        try {
+          await API.post('auth/user/register', obj);
+          setTimeout(() => {
+            history.push('/students');
+          }, 1000);
+        } catch (e) {
+          setError(e.response.data);
+        }
+      })();
+    }
+  };
   return (
     <div>
       <Grid container className={classes.root}>
@@ -78,14 +123,8 @@ const SignUp = () => {
                 variant="outlined"
                 fullWidth
                 required
-              ></TextField>
-              <TextField
-                id="outlined-basic"
-                margin="normal"
-                label="사업장 이름"
-                variant="outlined"
-                fullWidth
-                required
+                name="name"
+                onChange={userInputHandler}
               ></TextField>
               <TextField
                 id="outlined-basic"
@@ -95,6 +134,8 @@ const SignUp = () => {
                 fullWidth
                 autoComplete="email"
                 required
+                name="email"
+                onChange={userInputHandler}
               ></TextField>
               <TextField
                 id="outlined-basic"
@@ -105,16 +146,29 @@ const SignUp = () => {
                 type="password"
                 required
                 autoComplete="current-password"
+                name="password"
+                onChange={userInputHandler}
               ></TextField>
+              <Grid item xs={12}>
+                <Typography className={classes.error}>{error}</Typography>
+              </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
                   }
-                  label="TempTrek 이용약관, 개인정보 수집 및 이용에 동의합니다."
+                  label="Tempture 이용약관, 개인정보 수집 및 이용에 동의합니다."
+                  onChange={formHandler}
+                  checked={form}
+                  color="secondary"
                 />
               </Grid>
-              <Button type="submit" fullWidth className={classes.signup}>
+              <Button
+                type="submit"
+                fullWidth
+                className={classes.signup}
+                onClick={registerHandler}
+              >
                 계정 만들기
               </Button>
               <Copyright />
