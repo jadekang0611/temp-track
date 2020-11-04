@@ -15,7 +15,7 @@ import {
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Copyright from '../Copyright';
 import * as ROUTES from '../../constants/routes';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import API from '../../api';
 
 const useStyles = makeStyles((theme) => ({

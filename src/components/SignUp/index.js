@@ -15,7 +15,7 @@ import { useHistory } from 'react-router-dom';
 
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Copyright from '../Copyright';
-
+import * as ROUTES from '../../constants/routes';
 import API from '../../api';
 
 const useStyles = makeStyles((theme) => ({
@@ -94,7 +94,7 @@ const SignUp = () => {
         try {
           await API.post('auth/user/register', obj);
           setTimeout(() => {
-            history.push('/students');
+            history.push(ROUTES.SHOWSTUDENTS);
           }, 1000);
         } catch (e) {
           setError(e.response.data);

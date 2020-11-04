@@ -21,6 +21,7 @@
     "jspdf-autotable": "^3.5.13",
     "jspdf-customfonts": "0.0.4-rc.4",
     "react": "^17.0.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
