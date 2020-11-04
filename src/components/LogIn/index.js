@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -15,7 +15,8 @@ import {
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Copyright from '../Copyright';
 import * as ROUTES from '../../constants/routes';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import API from '../../api';
 
 const useStyles = makeStyles((theme) => ({
   root: { height: '100vh' },
@@ -61,6 +62,33 @@ const useStyles = makeStyles((theme) => ({
 
 const LogIn = () => {
   const classes = useStyles();
+
+  let history = useHistory();
+
+  const [userInput, setUserInput] = useState({});
+
+  const inputHandler = (e) => {
+    setUserInput({ ...userInput, [e.target.name]: e.target.value });
+  };
+
+  const signInHandler = (e) => {
+    e.preventDefault();
+    const obj = {
+      email: userInput.email,
+      password: userInput.password,
+    };
+    (async () => {
+      try {
+        await API.post('auth/user/signin', obj);
+        setTimeout(() => {
+          history.push(ROUTES.ADDTEMP);
+        }, 1000);
+      } catch (e) {
+        console.log(e.response.data);
+      }
+    })();
+  };
+
   return (
     <div className={classes.container}>
       <Grid container className={classes.root}>
@@ -83,6 +111,8 @@ const LogIn = () => {
                 autoComplete="email"
                 fullWidth
                 required
+                name="email"
+                onChange={inputHandler}
               ></TextField>
               <TextField
                 id="outlined-basic"
@@ -93,16 +123,23 @@ const LogIn = () => {
                 type="password"
                 required
                 autoComplete="current-password"
+                name="password"
+                onChange={inputHandler}
               ></TextField>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link to={ROUTES.ADDTEMP} className={classes.link}>
-                <Button type="submit" fullWidth className={classes.login}>
-                  로그인 하기
-                </Button>
-              </Link>
+
+              <Button
+                type="submit"
+                fullWidth
+                className={classes.login}
+                onClick={signInHandler}
+              >
+                로그인 하기
+              </Button>
+
               <Copyright />
             </form>
           </div>
