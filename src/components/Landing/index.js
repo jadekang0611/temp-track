@@ -4,9 +4,10 @@ import { Container, Grid, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import Copyright from '../Copyright';
+import Tempture from '../../images/Tempture.png';
 
 const useStyles = makeStyles((theme) => ({
-  content: { backgroundColor: 'white', padding: '6rem 2rem', height: '100vh' },
+  content: { backgroundColor: 'white', padding: '6rem 2rem', height: 'auto' },
   buttons: { marginTop: '2rem' },
   signup: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -34,16 +35,24 @@ const useStyles = makeStyles((theme) => ({
   landing: {
     margin: theme.spacing(3, 0, 2),
   },
+  appName: {
+    fontFamily: 'Rubik, sans-serif',
+    color: '#f50256',
+    fontWeight: 600,
+  },
 }));
 
 const Landing = () => {
   const classes = useStyles();
   return (
     <>
+      <header>
+        <img src={Tempture} alt="logo" width="300" />
+      </header>
       <div className={classes.content}>
         <Container maxWidth="sm">
-          <Typography variant="h2" align="center" color="textPrimary">
-            TempTrek
+          <Typography variant="h2" align="center" className={classes.appName}>
+            Tempture
           </Typography>
 
           <Typography
@@ -54,7 +63,7 @@ const Landing = () => {
             className={classes.landing}
           >
             오늘부터는 체온 기록도 빠르고 정확하게 기록하세요. 학원에서도
-            학생들의 안전을 최우선으로하며 TempTrek의 간단한 체온 기록 기능으로
+            학생들의 안전을 최우선으로하며 Tempture의 간단한 체온 기록 기능으로
             정부의 COVID 규정을 준수하여 학생과 학부모님에게 신뢰를 더하세요.
           </Typography>
           <div className={classes.buttons}>

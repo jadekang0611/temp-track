@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -10,12 +10,13 @@ import {
   Typography,
   Avatar,
   FormControlLabel,
+  Snackbar,
 } from '@material-ui/core';
 
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Copyright from '../Copyright';
 import * as ROUTES from '../../constants/routes';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import API from '../../api';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,9 +59,19 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
   },
+  addition: {
+    textDecoration: 'none',
+    color: '#FE6B8B',
+  },
+  question: {
+    fontWeight: 500,
+    '&:hover': {
+      fontWeight: 600,
+    },
+  },
 }));
 
-const LogIn = () => {
+const LogIn = ({ setHasCookie }) => {
   const classes = useStyles();
 
   let history = useHistory();
@@ -79,12 +90,20 @@ const LogIn = () => {
     };
     (async () => {
       try {
-        await API.post('auth/user/signin', obj);
-        setTimeout(() => {
-          history.push(ROUTES.ADDTEMP);
-        }, 1000);
+        const res = await API.post('auth/user/signin', obj, {
+          headers: { 'Content-Type': 'application/json' },
+        });
+        console.log(res);
+        if (res.statusText === 'OK') {
+          setTimeout(() => {
+            history.push(ROUTES.ADDTEMP);
+          }, 1000);
+        } else {
+          throw new Error(res.error);
+        }
       } catch (e) {
-        console.log(e.response.data);
+        setUserInput('');
+        console.log(e);
       }
     })();
   };
@@ -137,12 +156,16 @@ const LogIn = () => {
                 className={classes.login}
                 onClick={signInHandler}
               >
-                로그인 하기
+                로그인하기
               </Button>
-
-              <Copyright />
             </form>
+            <Link to={ROUTES.SIGNUP} className={classes.addition}>
+              <Typography className={classes.question}>
+                본인 계정이 없나요? 회원가입하기
+              </Typography>
+            </Link>
           </div>
+          <Copyright />
         </Grid>
       </Grid>
     </div>

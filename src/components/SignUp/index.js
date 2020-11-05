@@ -10,8 +10,9 @@ import {
   Typography,
   Avatar,
   FormControlLabel,
+  Snackbar,
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import Copyright from '../Copyright';
@@ -58,6 +59,16 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     color: 'red',
+  },
+  addition: {
+    textDecoration: 'none',
+    color: '#2196F3',
+  },
+  question: {
+    fontWeight: 500,
+    '&:hover': {
+      fontWeight: 600,
+    },
   },
 }));
 
@@ -171,9 +182,14 @@ const SignUp = () => {
               >
                 계정 만들기
               </Button>
-              <Copyright />
             </form>
+            <Link to={ROUTES.LOGIN} className={classes.addition}>
+              <Typography className={classes.question}>
+                제 계정이 있습니다. 로그인하기
+              </Typography>
+            </Link>
           </div>
+          <Copyright />
         </Grid>
       </Grid>
     </div>

@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 
-import {
-  Grid,
-  Typography,
-  Button,
-  AppBar,
-  Toolbar,
-  IconButton,
-} from '@material-ui/core';
+import { Grid, Button, AppBar, Toolbar, IconButton } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+} from 'react-router-dom';
 
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
 import FaceRoundedIcon from '@material-ui/icons/FaceRounded';
 import TrendingUpRoundedIcon from '@material-ui/icons/TrendingUpRounded';
+import AdjustRoundedIcon from '@material-ui/icons/AdjustRounded';
 
 // Custom Routes
 import * as ROUTES from '../../constants/routes';
-
-// API
-import API from '../../api';
 
 // Components
 import ShowStudents from '../ShowStudents';
@@ -29,7 +26,7 @@ import AddTemp from '../AddTemp';
 
 import Logo from '../../images/Tempture.png';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   appbar: { background: '#f1d302', color: '#071013' },
   main: { background: '#F1F1F1', height: '100vh' },
   content: {
@@ -67,10 +64,38 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
+  logo: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  buttonContainer: {
+    [theme.breakpoints.down('xs')]: {
+      justifyContent: 'space-between',
+    },
+  },
   AppButton: {
     color: '#071013',
     fontSize: '18px',
     fontWeight: 700,
+    '&:hover': {
+      color: '#ffffff',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    },
+  },
+  AppTempButton: {
+    color: '#f50256',
+    fontSize: '18px',
+    fontWeight: 700,
+    border: '2px solid',
+    '&:hover': {
+      color: '#071013',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 12,
+    },
   },
   noStudentTitle: {
     marginBottom: '2rem',
@@ -89,10 +114,17 @@ const useStyles = makeStyles({
     maxWidth: '1200px',
     margin: '2rem auto',
   },
-});
+}));
 
 const Main = () => {
   const classes = useStyles();
+  const history = useHistory();
+
+  const logoutHandler = (e) => {
+    setTimeout(() => {
+      history.push(ROUTES.LOGIN);
+    }, 1000);
+  };
 
   return (
     <Router>
@@ -100,9 +132,22 @@ const Main = () => {
         <AppBar position="static" elevation={false} className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
             <Grid item lg={3} className={classes.toolbarGrid}>
-              <img src={Logo} alt="logo" width="200" />
+              <Link to={ROUTES.LANDING}>
+                <img
+                  src={Logo}
+                  alt="logo"
+                  width="200"
+                  className={classes.logo}
+                />
+              </Link>
             </Grid>
-            <Grid container lg={6} direction="row" justify="space-evenly">
+            <Grid
+              container
+              lg={6}
+              direction="row"
+              justify="space-evenly"
+              className={classes.buttonContainer}
+            >
               <Link to={ROUTES.SHOWSTUDENTS} className={classes.link}>
                 <Button
                   className={classes.AppButton}
@@ -120,9 +165,21 @@ const Main = () => {
                   체온기록
                 </Button>
               </Link>
+              <Link to={ROUTES.ADDTEMP} className={classes.link}>
+                <Button
+                  className={classes.AppTempButton}
+                  startIcon={<AdjustRoundedIcon />}
+                >
+                  체온재기
+                </Button>
+              </Link>
             </Grid>
             <Grid item lg={3} className={classes.toolbarGrid}>
-              <IconButton edge="end" className={classes.AppButton}>
+              <IconButton
+                edge="end"
+                className={classes.AppButton}
+                onClick={logoutHandler}
+              >
                 <ExitToAppRoundedIcon />
               </IconButton>
             </Grid>
