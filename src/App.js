@@ -5,6 +5,9 @@ import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import AddStudent from './components/AddStudent';
 import Main from './components/Main';
+import Covid from './components/MiscPages/Covid';
+import News from './components/MiscPages/News';
+import Forms from './components/MiscPages/Forms';
 import * as ROUTES from './constants/routes';
 
 function App() {

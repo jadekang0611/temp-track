@@ -6,3 +6,6 @@ export const SHOWSTUDENTS = '/main/students';
 export const ADDSTUDENT = '/main/students/add-student';
 export const SHOWTEMPERATURES = '/main/records';
 export const ADDTEMP = '/main/add/temp';
+export const COVID = '/covid';
+export const NEWS = '/news';
+export const FORMS = '/forms';

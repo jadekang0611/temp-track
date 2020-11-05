@@ -7,7 +7,14 @@ import Copyright from '../Copyright';
 import Tempture from '../../images/Tempture.png';
 
 const useStyles = makeStyles((theme) => ({
-  content: { backgroundColor: 'white', padding: '6rem 2rem', height: 'auto' },
+  content: {
+    backgroundColor: 'white',
+    padding: '6rem 2rem',
+    height: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      padding: '4rem 1rem',
+    },
+  },
   buttons: { marginTop: '2rem' },
   signup: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
@@ -34,11 +41,50 @@ const useStyles = makeStyles((theme) => ({
   },
   landing: {
     margin: theme.spacing(3, 0, 2),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '20px',
+      lineHeight: '32px',
+    },
   },
   appName: {
     fontFamily: 'Rubik, sans-serif',
     color: '#f50256',
     fontWeight: 600,
+  },
+  navigation: {
+    padding: '1rem 4rem',
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+      padding: '2rem 4rem',
+    },
+  },
+  navLeft: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  navRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  item: {
+    marginRight: '2rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0 20px',
+    },
+  },
+  itemContent: {
+    fontFamily: 'Rubik, sans-serif',
+    fontSize: 18,
+    fontWeight: 600,
+    color: '#757575',
+    '&:hover': {
+      color: '#f50256',
+    },
   },
 }));
 
@@ -47,8 +93,36 @@ const Landing = () => {
   return (
     <>
       <header>
-        <img src={Tempture} alt="logo" width="300" />
+        <nav>
+          <Grid container className={classes.navigation}>
+            <div className={classes.navLeft}>
+              <Grid item>
+                <img src={Tempture} alt="logo" width="300" />
+              </Grid>
+            </div>
+            <div className={classes.navRight}>
+              <Grid item className={classes.item}>
+                <Link to={ROUTES.COVID} className={classes.link}>
+                  <Typography className={classes.itemContent}>
+                    COVID 19
+                  </Typography>
+                </Link>
+              </Grid>
+              <Grid item className={classes.item}>
+                <Link to={ROUTES.NEWS} className={classes.link}>
+                  <Typography className={classes.itemContent}>News</Typography>
+                </Link>
+              </Grid>
+              <Grid item className={classes.item}>
+                <Link to={ROUTES.FORMS} className={classes.link}>
+                  <Typography className={classes.itemContent}>Forms</Typography>
+                </Link>
+              </Grid>
+            </div>
+          </Grid>
+        </nav>
       </header>
+
       <div className={classes.content}>
         <Container maxWidth="sm">
           <Typography variant="h2" align="center" className={classes.appName}>
