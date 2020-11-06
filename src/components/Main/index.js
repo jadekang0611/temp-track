@@ -132,14 +132,14 @@ const Main = () => {
         <AppBar position="static" elevation={false} className={classes.appbar}>
           <Toolbar className={classes.toolbar}>
             <Grid item lg={3} className={classes.toolbarGrid}>
-              <Link to={ROUTES.LANDING}>
+              <a href="/">
                 <img
                   src={Logo}
                   alt="logo"
                   width="200"
                   className={classes.logo}
                 />
-              </Link>
+              </a>
             </Grid>
             <Grid
               container

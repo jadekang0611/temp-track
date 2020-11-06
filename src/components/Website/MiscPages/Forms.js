@@ -9,10 +9,17 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-import Copyright from '../../Copyright';
-import * as ROUTES from '../../../constants/routes';
-import Tempture from '../../../images/Tempture.png';
+
+import DistancingPDF from './Posters/distancing.pdf';
+import SanitizerPDF from './Posters/sanitizer.pdf';
+import HowToUsePDF from './Posters/howToUse.pdf';
+import UseMaskPDF from './Posters/useMask.pdf';
+
+//Preview
+import distancingImg from '../../../images/distancing.png';
+import santizerImg from '../../../images/sanitizer.png';
+import useMaskImg from '../../../images/useMask.png';
+import howToUseImg from '../../../images/howToUse.png';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -40,14 +47,51 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-    textAlign: 'center',
+
+  link: {
+    fontFamily: 'Noto Sans KR, sans-serif',
+    textDecoration: 'none',
+    color: '#f50256',
+  },
+  cardText: {
+    fontFamily: 'Noto Sans KR, sans-serif',
+  },
+  mainText: {
+    fontFamily: 'Noto Sans KR, sans-serif',
+    fontWeight: 500,
+  },
+  subText: {
+    fontFamily: 'Noto Sans KR, sans-serif',
+    fontWeight: 500,
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = [
+  {
+    poster: `${distancingImg}`,
+    link: `${DistancingPDF}`,
+    title: '슬기로운 거리두기',
+    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+  },
+  {
+    poster: `${howToUseImg}`,
+    link: `${HowToUsePDF}`,
+    title: '올바른 마스크 스타일',
+    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+  },
+  {
+    poster: `${santizerImg}`,
+    link: `${SanitizerPDF}`,
+    title: '소독제 사용',
+    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+  },
+  {
+    poster: `${useMaskImg}`,
+    link: `${UseMaskPDF}`,
+    title: '마스크 사용',
+    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+  },
+];
 
 const Forms = () => {
   const classes = useStyles();
@@ -65,6 +109,7 @@ const Forms = () => {
               align="center"
               color="textPrimary"
               gutterBottom
+              className={classes.mainText}
             >
               코로나19관련 콘텐츠
             </Typography>
@@ -73,6 +118,7 @@ const Forms = () => {
               align="center"
               color="textSecondary"
               paragraph
+              className={classes.subText}
             >
               Tempture에서 매장 손소독제 사용안내문, 마스크 착용 권고 안내문 등
               코로나19 관련 콘텐츠를 모두 무료로 다운받으세요. 함께 이겨내고
@@ -88,24 +134,27 @@ const Forms = () => {
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.cardMedia}
-                    image="https://source.unsplash.com/random"
-                    title="Image title"
+                    image={card.poster}
+                    title={card.title}
                   />
                   <CardContent className={classes.cardContent}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                      className={classes.cardText}
+                    >
+                      {card.title}
                     </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
+                    <Typography className={classes.cardText}>
+                      {card.description}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Edit
+                    <Button className={classes.download} color="secondary">
+                      <a href={card.link} download className={classes.link}>
+                        다운받기
+                      </a>
                     </Button>
                   </CardActions>
                 </Card>
@@ -114,15 +163,6 @@ const Forms = () => {
           </Grid>
         </Container>
       </main>
-      {/* Footer */}
-      {/* <footer className={classes.footer}>
-        <a href={ROUTES.LANDING}>
-          <img src={Tempture} alt="logo" width="250" />
-        </a>
-
-        <Copyright />
-      </footer> */}
-      {/* End footer */}
     </React.Fragment>
   );
 };

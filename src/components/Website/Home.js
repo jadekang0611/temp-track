@@ -1,11 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography, Button } from '@material-ui/core';
-import { Link, useRouteMatch, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
-import Copyright from '../Copyright';
-import SignUp from '../SignUp';
-import LogIn from '../LogIn';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -91,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
-  let match = useRouteMatch();
+
   return (
     <div className={classes.content}>
       <Container maxWidth="sm">
@@ -126,7 +123,6 @@ const Home = () => {
           </Grid>
         </div>
       </Container>
-      <Route path={ROUTES.SIGNUP} component={SignUp} />
     </div>
   );
 };

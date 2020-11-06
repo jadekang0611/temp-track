@@ -1,18 +1,12 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import Copyright from '../../Copyright';
-import * as ROUTES from '../../../constants/routes';
-import Tempture from '../../../images/Tempture.png';
 import CovidTimeline from '../../Timeline';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,32 +17,20 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
-  heroButtons: {
-    marginTop: theme.spacing(4),
+
+  timeline: {
+    margin: '2rem 0',
   },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+  mainText: {
+    fontFamily: 'Noto Sans KR, sans-serif',
+    fontWeight: 500,
   },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-    textAlign: 'center',
+  subText: {
+    fontFamily: 'Noto Sans KR, sans-serif',
+    fontWeight: 500,
+    lineHeight: 1.5,
   },
 }));
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Forms = () => {
   const classes = useStyles();
@@ -66,6 +48,7 @@ const Forms = () => {
               align="center"
               color="textPrimary"
               gutterBottom
+              className={classes.mainText}
             >
               코로나19 (COVID19)
             </Typography>
@@ -74,13 +57,17 @@ const Forms = () => {
               align="center"
               color="textSecondary"
               paragraph
+              className={classes.subText}
             >
-              2019년 겨울에 시작해 지금은 전 세계를 강타한 코로나19. 가능한 많은
-              정보를 보고 듣고 코로나19에 대한 두려움을 최소화 해봐요!
+              2019년 겨울에 시작해 지금은 전 세계를 강타한 코로나19. 정확한
+              정보와 현재 국제 상황을 이해하여 함께 코로나19에 대한 두려움을
+              최소화 해봐요!
             </Typography>
           </Container>
         </div>
-        <CovidTimeline />
+        <div className={classes.timeline}>
+          <CovidTimeline />
+        </div>
       </main>
     </React.Fragment>
   );
