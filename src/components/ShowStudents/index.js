@@ -20,8 +20,6 @@ import Placeholder from './NoData.svg';
 
 import AddStudent from '../AddStudent';
 
-import Copyright from '../Copyright';
-
 // Custom Components
 import API from '../../api';
 
@@ -232,6 +230,8 @@ const MyStudents = (props) => {
 const ShowStudents = () => {
   const classes = useStyles();
 
+  document.title = 'Tempture | My Students';
+
   const [studentList, setStudentList] = useState([]);
 
   const [formOpen, setFormOpen] = useState(false);
@@ -285,9 +285,6 @@ const ShowStudents = () => {
       ) : (
         <MyStudents studentList={studentList} />
       )}
-      <div>
-        <Copyright />
-      </div>
     </div>
   );
 };

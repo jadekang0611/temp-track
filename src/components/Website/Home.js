@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
-
+  document.title = 'Tempture | Home';
   return (
     <div className={classes.content}>
       <Container maxWidth="sm">
@@ -106,7 +106,7 @@ const Home = () => {
           오늘부터는 체온 기록도 빠르고 정확하게 기록하세요. 여러 사람들이
           다니는 식당, 카페, 학원 등 모든 분들의 안전을 최우선으로하여
           Tempture의 간단한 체온 기록 기능으로 정부의 COVID 규정을 준수하여
-          다녀가는 사람들께 신뢰와 안전감을 주세요.
+          방문하는 사람들에게 신뢰와 안전감을 주세요.
         </Typography>
         <div className={classes.buttons}>
           <Grid container spacing={2} justify="center">

@@ -11,7 +11,6 @@ import Forms from './components/Website/MiscPages/Forms';
 import Tempture from './images/Tempture.png';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
-import AddStudent from './components/AddStudent';
 import Main from './components/Main';
 import Copyright from './components/Copyright';
 

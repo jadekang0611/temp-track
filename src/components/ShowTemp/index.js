@@ -16,7 +16,6 @@ import {
   TablePagination,
   Grid,
   Button,
-  CircularProgress,
 } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -249,6 +248,8 @@ const MyStudentTemp = (props) => {
 const ShowTemp = () => {
   const classes = useStyles();
 
+  document.title = 'Tempture | Records';
+
   const [studentTempList, setStudentTempList] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -375,12 +376,9 @@ const ShowTemp = () => {
       ) : (
         <MyStudentTemp studentTempList={studentTempList} />
       )}
-      <div>
+      {/* <div>
         <Copyright />
-      </div>
-      <Grid item xs={12}>
-        {loading && <CircularProgress />}
-      </Grid>
+      </div> */}
     </div>
   );
 };

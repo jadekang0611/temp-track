@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddTemp = () => {
   const classes = useStyles();
-
+  document.title = 'Tempture | Get Temperature';
   const [userData, setUserData] = useState({});
   const [search, setSearch] = useState([]);
   const [selected, setSelected] = useState({});

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -10,7 +10,6 @@ import {
   Typography,
   Avatar,
   FormControlLabel,
-  Snackbar,
 } from '@material-ui/core';
 import { useHistory, Link } from 'react-router-dom';
 
@@ -75,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   let history = useHistory();
   const classes = useStyles();
-
+  document.title = 'TemptureApp | Sign up';
   const [userData, setUserData] = useState({});
   const [form, setForm] = useState(false);
   const [error, setError] = useState('');

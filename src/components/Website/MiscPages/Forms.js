@@ -95,7 +95,7 @@ const cards = [
 
 const Forms = () => {
   const classes = useStyles();
-
+  document.title = 'Tempture | Forms';
   return (
     <React.Fragment>
       <CssBaseline />

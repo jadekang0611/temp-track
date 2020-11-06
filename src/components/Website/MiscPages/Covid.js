@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Forms = () => {
   const classes = useStyles();
-
+  document.title = 'Tempture | Covid19';
   return (
     <React.Fragment>
       <CssBaseline />

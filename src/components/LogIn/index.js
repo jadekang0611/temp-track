@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   TextField,
@@ -10,7 +10,6 @@ import {
   Typography,
   Avatar,
   FormControlLabel,
-  Snackbar,
 } from '@material-ui/core';
 
 import WhatshotIcon from '@material-ui/icons/Whatshot';
@@ -73,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LogIn = ({ setHasCookie }) => {
   const classes = useStyles();
-
+  document.title = 'TemptureApp | Log in';
   let history = useHistory();
 
   const [userInput, setUserInput] = useState({});
