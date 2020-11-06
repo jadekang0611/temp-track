@@ -1,4 +1,7 @@
 export const LANDING = '/';
+export const HOME = '/home';
+export const COVID = '/covid';
+export const FORMS = '/forms';
 export const SIGNUP = '/signup';
 export const LOGIN = '/login';
 export const MAIN = '/main';
@@ -6,6 +9,3 @@ export const SHOWSTUDENTS = '/main/students';
 export const ADDSTUDENT = '/main/students/add-student';
 export const SHOWTEMPERATURES = '/main/records';
 export const ADDTEMP = '/main/add/temp';
-export const COVID = '/covid';
-export const NEWS = '/news';
-export const FORMS = '/forms';
