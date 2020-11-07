@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, TextField, Grid, Typography } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  Grid,
+  Typography,
+  Snackbar,
+} from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import API from '../../api';
 
@@ -45,6 +52,7 @@ const AddTemp = () => {
   const [userData, setUserData] = useState({});
   const [search, setSearch] = useState([]);
   const [selected, setSelected] = useState({});
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -54,6 +62,13 @@ const AddTemp = () => {
       console.log(res.data);
     })();
   }, []);
+
+  const handleClose = (e, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
 
   const dataHandler = (e, value) => {
     if (value != null) {
@@ -72,7 +87,7 @@ const AddTemp = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(userData);
+
     const obj = {
       name: userData.name,
       temperature: userData.temperature,
@@ -86,6 +101,7 @@ const AddTemp = () => {
       } catch (e) {
         console.log(e);
       }
+      setOpen(true);
     })();
   };
 
@@ -94,7 +110,6 @@ const AddTemp = () => {
       <Typography variant="h4" align="center" className={classes.message}>
         안녕하세요. 아래에 인적사항과 체온을 입력해주세요. &#128512;
       </Typography>
-
       <form noValidate autoComplete="on" className={classes.form}>
         <Grid container direction="row" justify="space-around" spacing={2}>
           <Grid item xs={12} md={3}>
@@ -146,6 +161,17 @@ const AddTemp = () => {
           </Grid>
         </Grid>
       </form>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <MuiAlert
+          onClose={handleClose}
+          severity="success"
+          elevation={6}
+          variant="filled"
+        >
+          위 학생의 체온이 정상적으로 입력되었습니다.
+        </MuiAlert>
+      </Snackbar>
+      ;
     </div>
   );
 };

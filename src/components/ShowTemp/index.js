@@ -23,7 +23,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Placeholder from './NoData.svg';
 import PriorityHighRoundedIcon from '@material-ui/icons/PriorityHighRounded';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
-import Copyright from '../Copyright';
 
 // Custom Components
 import API from '../../api';
@@ -252,8 +251,6 @@ const ShowTemp = () => {
 
   const [studentTempList, setStudentTempList] = useState([]);
 
-  const [loading, setLoading] = useState(false);
-
   const [dates, setDates] = useState({
     startDate: '',
     endDate: '',
@@ -273,7 +270,6 @@ const ShowTemp = () => {
 
     (async () => {
       try {
-        setLoading(true);
         let obj = {
           firstDate: dates.startDate,
           secondDate: dates.endDate,
@@ -281,10 +277,9 @@ const ShowTemp = () => {
         console.log(obj.firstDate);
         console.log(obj.secondDate);
         const res = await API.post('logs/date', obj);
-        setLoading(false);
+
         setStudentTempList(res.data);
       } catch (e) {
-        setLoading(false);
         console.log(e);
       }
     })();

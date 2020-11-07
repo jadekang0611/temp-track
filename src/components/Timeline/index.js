@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme) => ({
   yellow: {
     backgroundColor: '#f1d302',
   },
+  source: {
+    marginTop: 20,
+    fontFamily: 'Rubik, sans-serif',
+    fontSize: 14,
+    fontWeight: 400,
+  },
 }));
 
 export default function CovidTimeline() {
@@ -206,6 +212,13 @@ export default function CovidTimeline() {
           </Paper>
         </TimelineContent>
       </TimelineItem>
+      <Typography
+        className={classes.source}
+        align="center"
+        color="textSecondary"
+      >
+        Source: World Health Organization
+      </Typography>
     </Timeline>
   );
 }
