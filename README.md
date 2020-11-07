@@ -1,6 +1,6 @@
 # What is TemperTrac
 
-Using this application an education center teacher (e-Haebeob) can input and track students' temperatures once checked to follow the government's regulation in relation to the current situation. This app essentially replaces the current tracking style at many branches where teachers manually write on papers.
+Using this application, an education center teacher (e-Haebeob) and small business owners can input and track visitors' temperatures once checked to follow the government's regulation in relation to the their places. This app essentially replaces the current tracking style at many places where teachers and business owners manually write on papers.
 
 ## Application URL
 
@@ -44,11 +44,11 @@ The users now have one place where they add and view personal information. There
 
 ## Technologies
 
-React
-Material-UI
-Axios
-DayJS
-jsPDF
+- React
+- Material-UI
+- Axios
+- DayJS
+- jsPDF
 
 ## Main Components
 
