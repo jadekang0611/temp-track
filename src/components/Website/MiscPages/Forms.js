@@ -71,25 +71,25 @@ const cards = [
     poster: `${distancingImg}`,
     link: `${DistancingPDF}`,
     title: '슬기로운 거리두기',
-    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+    description: '코로나19시대에 거리두기는 우리를 더 강하게 만듭니다.',
   },
   {
     poster: `${howToUseImg}`,
     link: `${HowToUsePDF}`,
     title: '올바른 마스크 스타일',
-    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+    description: '올바른 마스크 사용방법으로 모두 건강하게 지내요.',
   },
   {
     poster: `${santizerImg}`,
     link: `${SanitizerPDF}`,
     title: '소독제 사용',
-    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+    description: '입장 전 꼭 손 소독제를 사용해 주세요.',
   },
   {
     poster: `${useMaskImg}`,
     link: `${UseMaskPDF}`,
     title: '마스크 사용',
-    description: 'Est aute sunt ad enim cillum nostrud incididunt officia eu.',
+    description: '마스크를 쓴 당신 더 멋있습니다.',
   },
 ];
 
