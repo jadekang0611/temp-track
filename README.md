@@ -1,4 +1,4 @@
-# What is TemperTrac
+# What is Temperture
 
 Using this application, an education center teacher (e-Haebeob) and small business owners can input and track visitors' temperatures once checked to follow the government's regulation in relation to the their places. This app essentially replaces the current tracking style at many places where teachers and business owners manually write on papers.
 
